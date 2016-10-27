@@ -4,14 +4,16 @@ angular.module('itunes').controller('mainCtrl', function($scope, itunesService){
   $scope.gridOptions = {
       data: 'songData',
       height: '110px',
-      sortInfo: {fields: ['Song', 'Artist', 'Collection', 'Type'], directions: ['asc']},
+      sortInfo: {fields: ['Song', 'Artist', 'Collection', 'Type', 'Song', 'SongPrice'], directions: ['asc']},
       columnDefs: [
         {field: 'Play', displayName: 'Play', width: '40px', cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{row.getProperty(col.field)}}"><img src="http://www.icty.org/x/image/Miscellaneous/play_icon30x30.png"></a></div>'},
         {field: 'Artist', displayName: 'Artist'},
+        {field: 'Song', displayName: 'Song'},
+        {field: 'SongPrice', displayName: 'Song Price'},
         {field: 'Collection', displayName: 'Collection'},
         {field: 'AlbumArt', displayName: 'Album Art', width: '110px', cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><img src="{{row.getProperty(col.field)}}"></div>'},
-        {field: 'Type', displayName: 'Type'},
         {field: 'CollectionPrice', displayName: 'Collection Price'},
+        {field: 'Type', displayName: 'Type'},
       ]
   };
 
@@ -28,11 +30,11 @@ angular.module('itunes').controller('mainCtrl', function($scope, itunesService){
     //Code here
     $scope.getArtist = function(artist) {
       itunesService.getArtist($scope.artist).then(function(response){
-        $scope.songData = response.data;
-        console.log(response.data);
+        console.log(response);
+        $scope.songData = response;
+        $scope.artist = "";
       });
     };
-    $scope.getArtist();
 
 
 
